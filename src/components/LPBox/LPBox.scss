@@ -1,0 +1,243 @@
+.lp-box {
+    align-self: baseline;
+
+    color: rgb(21, 110, 155);
+    position: relative;
+    background: linear-gradient(rgb(255, 160, 0), rgb(215, 130, 0)) 0% 0% / 400% 400%;
+    border-radius: 24px;
+    overflow: hidden;
+    animation: 3s ease 0s infinite normal none running idZEjz;
+    padding: 4px 1px;
+
+    &-content {
+      width: 100%;
+      height: 100%;
+      overflow: inherit;
+      background: rgb(255, 255, 255);
+      border-radius: 24px;
+
+      &-top {
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 24px;
+
+        .image-content {
+            width: 64px;
+            height: 64px;
+            position: relative;
+
+            img:last-child {
+                position: absolute;
+                bottom: 0px; right: 0px;
+            }
+        }
+
+        .token-name {
+            font-size: 20px;
+            line-height: 1.1;
+            font-weight: 600;
+
+            color: rgb(21, 110, 155);
+            margin-bottom: 4px;
+        }
+
+        .attr_title {
+            color: rgb(21, 110, 155);
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .attr_cont {
+            color: rgb(21, 110, 155);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
+        .percentage_But {
+            padding: 0px;
+            width: 32px;
+
+            -webkit-box-align: center;
+            align-items: center;
+            border: 0px;
+            border-radius: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 32px;
+            padding: 0px 16px;
+            background-color: transparent;
+            color: rgb(239, 183, 0);
+            box-shadow: none;
+            margin-left: 4px;
+
+            &:hover {
+                opacity: .65;
+            }
+
+            >svg {
+                align-self: center;
+                fill: rgb(21, 110, 155);
+                flex-shrink: 0;
+            }
+        }
+
+        .lock_amount {
+            align-items: center;
+            border-radius: 16px;
+            color: rgb(255, 255, 255);
+            display: inline-flex;
+            font-weight: 400;
+            white-space: nowrap;
+            height: 28px;
+            padding: 0px 8px;
+            font-size: 14px;
+            background-color: rgb(85, 176, 221);
+
+            > svg {
+                fill: currentcolor;
+            }
+            .key {
+                align-self: center;
+                // fill: rgb(85, 176, 221);
+                flex-shrink: 0;
+                margin-right: 0.5em;
+            }
+        }
+
+        .attr_title_s_l {
+            color: rgb(85, 176, 221);
+            font-weight: 600;
+            line-height: 1.5;
+            text-transform: uppercase;
+            padding-right: 4px;
+            font-size: 12px;
+        }
+
+        .attr_title_s_d {
+            color: rgb(50, 111, 174);
+            font-weight: 600;
+            line-height: 1.5;
+            text-transform: uppercase;
+            font-size: 12px;
+        }
+
+        .attr_lock_amount {
+            color: rgb(192, 202, 205);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.5;
+
+            @media screen and (min-width: 968px)
+            {
+                font-size: 20px;
+            }
+        }
+
+        .attr_lock_but {
+            -webkit-box-align: center;
+            align-items: center;
+            border: 0px;
+            border-radius: 16px;
+            box-shadow: rgb(14 14 44 / 40%) 0px -1px 0px 0px inset;
+            cursor: pointer;
+            display: inline-flex;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            -webkit-box-pack: center;
+            justify-content: center;
+            letter-spacing: 0.03em;
+            line-height: 1;
+            opacity: 1;
+            outline: 0px;
+            transition: background-color 0.2s ease 0s, opacity 0.2s ease 0s;
+            height: 48px;
+            padding: 0px 24px;
+            background-color: rgb(239, 183, 0);
+            color: white;
+
+            &:disabled {
+                background-color: rgb(233, 234, 235);
+                border-color: rgb(233, 234, 235);
+                box-shadow: none;
+                color: rgb(192, 202, 205);
+                cursor: not-allowed;
+            }
+        }
+      }
+
+      &-bottom {
+        padding: 24px;
+        border-top: 2px solid rgb(223, 239, 247);
+        overflow: hidden;
+
+        .lp-box-details-text {
+            >div:first-child {
+                cursor: pointer;
+                div {
+                    color: rgb(239, 183, 0);
+                    font-size: 16px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                }
+    
+                svg {
+                    fill: rgb(239, 183, 0);
+                }
+            }
+            
+            
+        }
+
+        .attr_text {
+            color: rgb(21, 110, 155);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .attr_view {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            >a {
+                display: flex;
+                align-items: center;
+
+                color: rgb(239, 183, 0);
+                font-size: 14px;
+                font-weight: 600;
+                line-height: 1.5;
+
+                width: fit-content;
+
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                >svg {
+                    align-self: center;
+                    fill: rgb(239, 183, 0);
+                    flex-shrink: 0;
+                    margin-left: 4px;
+                }
+            }
+        }
+      }
+    }
+}
