@@ -14,7 +14,7 @@ const Footer: React.FC = () => {
         <TokenInfoBox>
           <ul>
             <li>Total Value Locked</li>
-            <span style={{ fontSize: '16px' }}>{"$43,09.02"}</span>
+            <span style={{ fontSize: '16px' }}>{"$0.00"}</span>
           </ul>
           <Box display={'flex'} alignItems={'center'}>
             <img width={'32px'} src={'./logo.png'} />
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
             <TokenPriceBox>
               <Link href={'https://pancakeswap.finance/swap?outputCurrency=0x1e9692ceb06f4fba63009caab19610577fe57b18'}>
                 <img width={'24x'} src={'./logo.png'} />
-                <Box>{'$0.000156'}</Box>
+                <Box>{'$0.00'}</Box>
               </Link>
             </TokenPriceBox>
             <TokenBuyBut href={'https://pancakeswap.finance/swap?outputCurrency=0x1e9692ceb06f4fba63009caab19610577fe57b18'}>BUY SHIBA KING</TokenBuyBut>
