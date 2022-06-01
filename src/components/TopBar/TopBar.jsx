@@ -62,7 +62,7 @@ function TopBar({ theme, toggleTheme, handleDrawerToggle }) {
               <img src={'/logo.png'} width={'40px'} height={'100%'} alt={'logo'} />
             </Box>
             <Menus>
-              <Box><Link to={'/reward'} style={{ color: 'white', textDecoration: 'unset' }}>Farms</Link></Box>
+              <Box><Link to={'/farms'} style={{ color: 'white', textDecoration: 'unset' }}>Farms</Link></Box>
               <Box><Link to={'/pools'} style={{ color: 'white', textDecoration: 'unset' }}>Pools</Link></Box>
             </Menus>
           </Box>

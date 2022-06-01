@@ -99,8 +99,9 @@ a:hover svg {
     color: #ffe300 !important;
     text-decoration: underline;
 }
-.ReactModal__Content{
-    @media screen and (min-width : 980px){
-        transform: translate(calc(-50% + 125px), -50%)!important;
-    }
+.ReactModal__Overlay{
+    background-color: rgba(43, 8, 49,0.6)!important;
+    transition: opacity 0.4s ease 0s!important;
+    position: relative;
+    z-index: 10;
 }

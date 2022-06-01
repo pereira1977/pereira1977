@@ -115,30 +115,4 @@ const ConnectButton = styled(Box)`
     }
 `;
 
-const ConnectedButton = styled(Box)`
-    width : 114px;
-    height : 26px;
-    display : flex;
-    justify-content : center;
-    align-items : center;
-    background-color : #292929;
-    color : white;
-    border-radius : 20px;
-    font-size : 11px;
-    position : relative;
-    overflow : unset;
-    border: 1px solid #b7e2fa;
-    >div{
-        position : absolute;
-        border-radius : 50%;
-        width : 27px;
-        height : 27px;
-        border: 1px solid #b7e2fa;
-        top : -2px;
-        left : -10px;
-        background-color : #292929;
-    }
-    cursor : pointer;
-`;
-
 export default ConnectMenu;

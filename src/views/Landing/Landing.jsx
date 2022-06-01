@@ -1,26 +1,83 @@
-import { useSelector } from "react-redux";
-import { Paper, Grid, Typography, Box, Zoom } from "@material-ui/core";
-import { trim } from "../../helpers";
+import { Box } from "@material-ui/core";
 import "./Landing.scss";
-import { Skeleton } from "@material-ui/lab";
 import LPBox from "src/components/LPBox/LPBox";
+import { useState, useEffect } from 'react'
+import { useAddress } from "../../hooks";
+import { SHIBAKING_ADDR, SHIBAKING_BNB_ADDR, FARMING_ADDR } from '../../abis/address'
+import ERC20ABI from '../../abis/ERC20ABI.json';
+import PancakePairABI from '../../abis/PancakePairABI.json'
+import FarmingABI from '../../abis/FarmingABI.json';
+import { ethers } from 'ethers';
+import axios from 'axios';
+import { useWeb3Context } from '../../hooks';
 
+let timerid = null;
 function Landing() {
-    // Use marketPrice as indicator of loading.
-    //   const isAppLoading = useSelector(state => !state.app?.marketPrice ?? true);
-    //   const marketPrice = useSelector(state => {
-    //     return state.app.marketPrice;
-    //   });
-    //   const circSupply = useSelector(state => {
-    //     return state.app.circSupply;
-    //   });
-    //   const totalSupply = useSelector(state => {
-    //     return state.app.totalSupply;
-    //   });
-    //   const marketCap = useSelector(state => {
-    //     return state.app.marketCap;
-    //   });
+    const account = useAddress();
+    const [farms, setFarms] = useState([{}, {}, {}]);
 
+    async function fetchData() {
+        const provider = new ethers.providers.JsonRpcProvider('https://data-seed-prebsc-1-s1.binance.org:8545');
+        const lpTokenContract = new ethers.Contract(SHIBAKING_BNB_ADDR, PancakePairABI, provider);
+
+        const farmingContract = new ethers.Contract(FARMING_ADDR, FarmingABI, provider);
+        const reserves = await lpTokenContract.getReserves();
+        const totalSupply = await lpTokenContract.totalSupply() / Math.pow(10, 18);
+        let price = await axios.get(`https://api.pancakeswap.info/api/v2/tokens/0xaFb64E73dEf6fAa8B6Ef9a6fb7312d5C4C15ebDB`);
+        price = price.data.data;
+        const totalLiquidity = (price.price * reserves[0] / Math.pow(10, 18) + price.price / price.price_BNB * reserves[1] / Math.pow(10, 18))
+        console.log(totalLiquidity);
+        price = 2 * Math.sqrt(reserves[0] / Math.pow(10, 18) * reserves[1] / Math.pow(10, 18)) *
+            Math.sqrt(price.price * price.price / price.price_BNB) / totalSupply;
+        console.log(price);
+
+        let allowance = 0, balance = 0;
+        if (account) {
+            allowance = await lpTokenContract.allowance(account, FARMING_ADDR) / Math.pow(10, 18);
+            balance = await lpTokenContract.balanceOf(account) / Math.pow(10, 18);
+        }
+        let temp = [];
+        for (let i = 0; i < 3; i++) {
+            const poolInfo = await farmingContract.pools(i);
+            const depositFee = poolInfo.depositFee / 1;
+            const withdrawFee = poolInfo.withdrawFee / 1;
+            const totalStaked = poolInfo.totalStaked / Math.pow(10, 18);
+            let withdrawableAmount = 0, pendingReward = 0, stakedAmount = 0, claimableReward = 0;
+            if (account) {
+
+                const amount1 = await farmingContract.withdrawableAmount(i, account);
+                stakedAmount = amount1[0] / Math.pow(10, 18);
+                withdrawableAmount = amount1[1] / Math.pow(10, 18);
+                const amount2 = await farmingContract.pendingReward(i, account);
+                pendingReward = amount2[0] / Math.pow(10, 18);
+                claimableReward = amount2[1] / Math.pow(10, 18);
+            }
+
+            temp.push({
+                depositFee,
+                withdrawFee,
+                price,
+                allowance,
+                stakedAmount,
+                withdrawableAmount,
+                pendingReward,
+                claimableReward,
+                totalStaked,
+                balance,
+                totalLiquidity
+            });
+        }
+        console.log(temp);
+        setFarms(temp);
+    }
+
+    useEffect(() => {
+        fetchData();
+        if (timerid) clearInterval(timerid);
+        timerid = setInterval(function () {
+            fetchData();
+        }, 10000)
+    }, [account])
     return (
         <div id="landing-view">
             <Box className="title-box">
@@ -43,9 +100,9 @@ function Landing() {
 
             <Box className="lp-container">
                 <Box className="lp-boxes">
-                    <LPBox APY={'32%'} duration={'15'}></LPBox>
-                    <LPBox APY={'115%'} duration={'30'}></LPBox>
-                    <LPBox APY={'235%'} duration={'60'}></LPBox>
+                    <LPBox APY={'32%'} duration={'15'} farm={farms[0]} index={0} fetchData={fetchData}></LPBox>
+                    <LPBox APY={'115%'} duration={'30'} farm={farms[1]} index={1} fetchData={fetchData}></LPBox>
+                    <LPBox APY={'235%'} duration={'60'} farm={farms[2]} index={2} fetchData={fetchData}></LPBox>
                 </Box>
             </Box>
         </div>
